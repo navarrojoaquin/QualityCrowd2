@@ -13,7 +13,10 @@ if (strlen($rebufferingsimulation) == 0) {
 </div>
 <!-- We need to use uniqid because this template can be included several times in the same webpage -->
 <div id="test_box_<?= $uid ?>" style="visibility:hidden">
-	<video id="example_video_1_<?= $uid ?>" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup='{ "controls": true, "autoplay": false, "preload": "auto" }'>
+	<video id="example_video_1_<?= $uid ?>" class="video-js vjs-default-skin vjs-big-play-centered" 
+	       controls preload="auto" poster="http://video-js.zencoder.com/oceans-clip.png" 
+	       width="<?= $width; ?>" height="<?= $height; ?>"
+	       data-setup='{ "controls": true, "autoplay": false, "preload": "auto" }'>
  		<!--<source src="/QualityCrowd2/media/bigbuck.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />-->
  		<source src="<?= $file; ?>" type='video/mp4'/>
 	</video>
