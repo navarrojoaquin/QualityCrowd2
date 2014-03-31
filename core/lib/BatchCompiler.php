@@ -59,6 +59,7 @@ class BatchCompiler extends Base
 				'videowidth' 	 => 352,
 				'videoheight' 	 => 288,
 				'delay' 		 => 0,
+				'rebufferingsimulation' => '',
 				),
 			'description' => '',
 			),

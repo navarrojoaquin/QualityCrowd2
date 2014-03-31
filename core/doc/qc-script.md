@@ -60,4 +60,13 @@ Sets the title of a step page to `<text>`; will be displayed as page heading on 
 ### videoheight
 	set videoheight <number>
 
+### rebufferingsimulation
+	set rebufferingsimulation <rebuffering-data>
+The *rebufferingsimulation* property allows the html5 video player to simulate rebuffering events at the desired instant and with the desired duration.
+
+The *rebuffering-data* value follows the following syntax: <code>{rebufferingStart : rebufferingDuration, rebufferingStart : rebufferingDuration}</code>.
+
+Example: <code>set rebufferingsimulation "{20: 4, 60: 10, 120: 5}"</code>
+
+Note: once set, *rebufferingsimulation* will apply to subsequent videos. Use <code>unset rebufferingsimulation</code> when the rebuffering simulation is no longer required.
 

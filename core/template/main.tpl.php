@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -10,6 +10,9 @@
 		<script type="text/javascript" src="<?= BASE_URL ?>core/files/js/swfobject.js"></script>
 		<script type="text/javascript" src="<?= BASE_URL ?>core/files/js/flashver.js"></script>
 		<script type="text/javascript" src="<?= BASE_URL ?>core/files/js/jquery.js"></script>
+		<!-- Using video.js -->
+		<link href="http://vjs.zencdn.net/4.4/video-js.css" rel="stylesheet">
+		<script src="http://vjs.zencdn.net/4.4/video.js"></script>
 	</head>
 	<body>
 		<div class="header">

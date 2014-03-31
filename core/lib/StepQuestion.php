@@ -61,11 +61,12 @@ class StepQuestion extends Step
 
 		foreach ($this->arguments as $video)
 		{
-			$tpl = new Template('player', $this->batchId);
+			$tpl = new Template('player.videojs', $this->batchId);
 			$tpl->set('file', $this->properties['mediaurl'] . $video);
 			$tpl->set('filename', $video);
 			$tpl->set('width',  $this->properties['videowidth']);
 			$tpl->set('height', $this->properties['videoheight']);
+			$tpl->set('rebufferingsimulation', $this->properties['rebufferingsimulation']);
 			$videos[$video] = $tpl->render();
 		}
 
