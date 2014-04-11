@@ -39,9 +39,17 @@ if (strlen($rebufferingsimulation) == 0) {
 		});
 		myPlayer.on("play", function() {
 			console.log("Playing");
+			//myPlayer.controls(false);
+			disableUI();
 			buffering = false;
 			if (initialBuffering) {
 				initialBuffering = false;
+				/* Force a timeupdate event to simulate initial buffering (rebuffering t=0).
+				   That's not necessary on Firefox, but it is on Chrome because it fires a timeupdate
+				   event before playing the video.
+				   See https://code.google.com/p/chromium/issues/detail?id=223476
+				   We let some time (50ms) to let the player start */
+				setTimeout(function(){myPlayer.trigger("timeupdate");}, 50);
 			}
 			if (lastRebufferingTime != null) {
 				var duration = new Date() - lastRebufferingTime;
@@ -71,22 +79,36 @@ if (strlen($rebufferingsimulation) == 0) {
 		myPlayer.load();
 		function startBuffering() {
 			myPlayer.trigger("waiting");
-			myPlayer.controls(false); // Hide the controls while simulating buffering
+			//myPlayer.controls(false); // Hide the controls while simulating buffering
 			myPlayer.pause();
 		}
 		function stopBuffering() {
 			myPlayer.play();
 			// Show the controls
-			myPlayer.controls(true);
-			myPlayer.controlBar.fadeOut();
+			//myPlayer.controls(true);
+			//myPlayer.controlBar.fadeOut();
+		}
+		/* We disable the UI to allow the controlBar to be seen but not clickable */
+		function disableUI() {
+			myPlayer.controlBar.playToggle.off("mousedown");
+			myPlayer.controlBar.playToggle.off("touchstart");
+			myPlayer.controlBar.playToggle.off("click");
+			myPlayer.controlBar.progressControl.seekBar.off("mousedown");
+			myPlayer.controlBar.progressControl.seekBar.off("touchstart");
+			myPlayer.controlBar.progressControl.seekBar.off("click");
+			myPlayer.tech.removeControlsListeners(); // This only works with the dev version of videojs
 		}
 		var simulatedRebufferings = <?= $rebufferingsimulation ?>;
 		function simulateRebuffering() {
+			/* Google Chrome triggers a timeupdate=0 event when the video loads, so if the video is paused
+			   there is nothing to do here */
+			if (myPlayer.paused()) return;
 			var t_rebuffering = 0;
 			var rebufferings_to_delete = [];
 			var t = myPlayer.currentTime();
+			var threshold = 2;
 			for (var i in simulatedRebufferings) {
-				if (t > i) {
+				if (t - i < threshold) {
 					t_rebuffering += simulatedRebufferings[i];
 					rebufferings_to_delete.push(i);
 				}
@@ -96,8 +118,9 @@ if (strlen($rebufferingsimulation) == 0) {
 			}
 			if (t_rebuffering > 0) {
 				console.log("Simulating rebuffering");
-				startBuffering();
+				
 				setTimeout(stopBuffering, t_rebuffering * 1000);
+				startBuffering();
 			}			
 		}
 		if (simulatedRebufferings !== undefined) {

@@ -10,9 +10,9 @@
 		<script type="text/javascript" src="<?= BASE_URL ?>core/files/js/swfobject.js"></script>
 		<script type="text/javascript" src="<?= BASE_URL ?>core/files/js/flashver.js"></script>
 		<script type="text/javascript" src="<?= BASE_URL ?>core/files/js/jquery.js"></script>
-		<!-- Using video.js -->
-		<link href="http://vjs.zencdn.net/4.4/video-js.css" rel="stylesheet">
-		<script src="http://vjs.zencdn.net/4.4/video.js"></script>
+		<!-- Using video.js: we need the dev version to prevent play/pause function when the screen is clicked. -->
+		<link href="<?= BASE_URL ?>core/files/video-js/video-js.css" rel="stylesheet">
+		<script src="<?= BASE_URL ?>core/files/video-js/video.dev.js"></script>
 	</head>
 	<body>
 		<div class="header">
