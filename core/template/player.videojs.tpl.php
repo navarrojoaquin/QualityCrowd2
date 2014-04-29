@@ -75,7 +75,13 @@ if (strlen($rebufferingsimulation) == 0) {
 			divLoadingMessage.style.visibility = 'hidden';
 		});
 		// We load the video now to ensure that the event callbacks are set (prevent errors on mobile devices)
-		myPlayer.src("<?= $file; ?>");
+		// Videos are supossed to be encoded in .mp4 and in .webm
+		var videoMp4File = "<?= $file; ?>";
+		var videoWebmFile = videoMp4File.replace("mp4", "webm");
+		myPlayer.src([
+			{ type: "video/mp4", src: videoMp4File },
+			{ type: "video/webm", src: videoWebmFile }		
+		]);
 		myPlayer.load();
 		function startBuffering() {
 			myPlayer.trigger("waiting");
