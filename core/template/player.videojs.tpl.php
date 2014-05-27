@@ -105,6 +105,8 @@ if (strlen($rebufferingsimulation) == 0) {
 			myPlayer.tech.removeControlsListeners(); // This only works with the dev version of videojs
 		}
 		var simulatedRebufferings = <?= $rebufferingsimulation ?>;
+		console.log("Scheduled rebufferings:");
+		console.log(simulatedRebufferings);
 		function simulateRebuffering() {
 			/* Google Chrome triggers a timeupdate=0 event when the video loads, so if the video is paused
 			   there is nothing to do here */
@@ -114,7 +116,7 @@ if (strlen($rebufferingsimulation) == 0) {
 			var t = myPlayer.currentTime();
 			var threshold = 2;
 			for (var i in simulatedRebufferings) {
-				if (t - i < threshold) {
+				if (t - i < threshold && t >= i) {
 					t_rebuffering += simulatedRebufferings[i];
 					rebufferings_to_delete.push(i);
 				}
